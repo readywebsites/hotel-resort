@@ -516,5 +516,62 @@
     <script src="js/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4JwWo5VPt9WyNp3Ne2uc2FMGEePHpqJ8&amp;callback=initMap" async defer></script>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#contact-form').on('submit', function(e) {
+      e.preventDefault();
+      
+      var name = $('#fname').val();
+      var name = $('#lname').val();
+      var email = $('#email').val();
+      var phone = $('#phone').val();
+      var subject = $('#subject').val();
+      var message = $('#message').val();
+  
+      $.ajax({
+        url: 'https://script.google.com/macros/s/AKfycbz077L-p4QNQtj5ODpoD-OSVcZ0nXl2BjC7kIWbrddVzMFeLJCOJRAcDJLl1pHMO3ODGA/exec',
+        method: 'POST',
+        data: {
+          cname: fname,
+          cname: lname,
+          cemail: email,
+          cphone: phone,
+          csubject: subject,
+          cmessage: message
+        },
+        success: function(response) {
+          toastr.success('Form submitted successfully!');
+          setTimeout(function() {
+            window.location.href = 'http://127.0.0.1:5500/contact.html';
+          }, 3000);
+        },
+        error: function(xhr, status, error) {
+          console.error("Error:", xhr.responseText);
+          toastr.error('There was an error submitting the form. Please try again.');
+        }
+      });
+    });
+  });
+
+  toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-full-width",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+</script>
 </body>
 </html>
